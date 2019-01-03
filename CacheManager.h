@@ -14,13 +14,15 @@ using namespace std;
 class CacheManager {
     map<Problem *, Solution *> solutions;
 public:
-    virtual bool isSavedSolution(Problem *p) = 0;
+    virtual bool isSavedSolution(Problem *p){
+        return solutions.count(p) != 0;
+    }
 
-    Solution *getSolution(Problem *p) {
+    virtual Solution *getSolution(Problem *p) {
         return solutions[p];
     }
 
-    void saveSolution(Problem *p, Solution *s) {
+    virtual void saveSolution(Problem *p, Solution *s) {
         solutions[p] = s;
     }
 };

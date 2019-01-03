@@ -3,3 +3,11 @@
 //
 
 #include "Problem.h"
+
+Problem::Problem(string str) {
+    this->problem = str;
+}
+
+string Problem::getProblem() {
+    return this->problem;
+}

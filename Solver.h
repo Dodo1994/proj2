@@ -11,7 +11,7 @@
 
 class Solver {
 public:
-    virtual Solution solve(Problem prob) = 0;
+    virtual Solution* solve(Problem *prob) = 0;
 };
 
 

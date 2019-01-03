@@ -3,3 +3,11 @@
 //
 
 #include "Solution.h"
+
+Solution::Solution(string str) {
+    this->solution = str;
+}
+
+string Solution::getSolution() {
+    return this->solution;
+}

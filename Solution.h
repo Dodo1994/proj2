@@ -5,9 +5,15 @@
 #ifndef PROJ2_SOLUTION_H
 #define PROJ2_SOLUTION_H
 
+#include "string"
+
+using namespace std;
 
 class Solution {
-
+    string solution;
+public:
+    Solution(string str);
+    string getSolution();
 };
 
 

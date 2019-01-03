@@ -7,8 +7,12 @@
 
 
 #include "ClientHandler.h"
+#include "Solver.h"
+#include "CacheManager.h"
 
 class MyTestClientHandler : public ClientHandler{
+    Solver *solver;
+    CacheManager *cm;
 public:
     void handleClient(istream in,ostream out);
 };
