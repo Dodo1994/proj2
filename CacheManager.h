@@ -6,23 +6,21 @@
 #define PROJ2_CACHEMANAGER_H
 
 #include <map>
-#include "Problem.h"
-#include "Solution.h"
 
 using namespace std;
-
+template <class S, class P>
 class CacheManager {
-    map<Problem *, Solution *> solutions;
+    map<P, S> solutions;
 public:
-    virtual bool isSavedSolution(Problem *p){
+    virtual bool isSavedSolution(P p){
         return solutions.count(p) != 0;
     }
 
-    virtual Solution *getSolution(Problem *p) {
+    virtual S getSolution(P p) {
         return solutions[p];
     }
 
-    virtual void saveSolution(Problem *p, Solution *s) {
+    virtual void saveSolution(P p, S s) {
         solutions[p] = s;
     }
 };

@@ -8,8 +8,7 @@
 
 #include "CacheManager.h"
 // TODO: support file saving and loading.
-
-class FileCacheManager: public CacheManager {
+class FileCacheManager: public CacheManager<string,string> {
 public:
     FileCacheManager();
 };

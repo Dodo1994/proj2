@@ -6,12 +6,10 @@
 #define PROJ2_SOLVER_H
 
 
-#include "Solution.h"
-#include "Problem.h"
-
+template <class S ,class P>
 class Solver {
 public:
-    virtual Solution* solve(Problem *prob) = 0;
+    virtual S solve(P) = 0;
 };
 
 
