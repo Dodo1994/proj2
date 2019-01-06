@@ -10,6 +10,7 @@
 using namespace std;
 template <class S, class P>
 class CacheManager {
+protected:
     map<P, S> solutions;
 public:
     virtual bool isSavedSolution(P p){

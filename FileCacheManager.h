@@ -11,6 +11,10 @@
 class FileCacheManager: public CacheManager<string,string> {
 public:
     FileCacheManager();
+    ~FileCacheManager();
+
+private:
+    void saveToFile();
 };
 
 
