@@ -9,10 +9,10 @@
 #include "ClientHandler.h"
 #include "Solver.h"
 #include "CacheManager.h"
-template <class S ,class P>
+
 class MyTestClientHandler : public ClientHandler{
-    Solver<S,P> *solver;
-    CacheManager<S,P> *cm;
+    Solver<string,string> *solver;
+    CacheManager<string,string> *cm;
 public:
 
     void handleClient(istream in,ostream out);
