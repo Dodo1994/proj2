@@ -15,9 +15,9 @@ template <class T>
 class Searchable{
 
 public:
-    State<T> getInitialState();
-    State<T> getGoalState();
-    list<State<T>> getAllPossibleStates();
+    virtual State<T> getInitialState()=0;
+    virtual State<T> getGoalState()=0;
+    virtual list<State<T>> getAllPossibleStates()=0;
 };
 
 #endif //PROJ2222_SEARCHABLE_H

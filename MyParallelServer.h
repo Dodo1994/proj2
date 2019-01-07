@@ -16,9 +16,9 @@ class MyParallelServer : public Server {
 public:
     MyParallelServer()= default;
 
-    void stop() override;
+    void stop();
 
-    void start(int port, ClientHandler *clientHandler);
+    void open(int port, ClientHandler *c);
 };
 
 
