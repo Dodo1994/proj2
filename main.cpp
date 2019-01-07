@@ -1,5 +1,8 @@
 #include <iostream>
 #include "MySerialServer.h"
+#include "FileCacheManager.h"
+#include "MyTestClientHandler.h"
+#include "StringReverser.h"
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
@@ -8,7 +11,7 @@ int main() {
 
 
 namespace boot {
-
+using std::string;
     class Main {
 
     public:
@@ -19,7 +22,7 @@ namespace boot {
                 Server* server = new MySerialServer;
 
                 // cache manager
-                CacheManager<string,string>* cacheManager = new FileCacheManager<string,string>;
+                CacheManager<string,string>* cacheManager = new FileCacheManager();
 
                 // solver
                 Solver<string,string>* solver = new StringReverser;
@@ -28,7 +31,7 @@ namespace boot {
                 ClientHandler* clientHandler = new MyTestClientHandler<string,string>(cacheManager, solver);
 
                 // start server
-                server->start(stoi(argv[0]), clientHandler);
+                server->open(stoi(argv[0]), clientHandler);
             }
 
             std::cout << "Hello, World!" << std::endl;
