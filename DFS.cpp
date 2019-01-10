@@ -3,3 +3,10 @@
 //
 
 #include "DFS.h"
+
+
+
+template<class T>
+T DFS<T>::search(Searchable<T> searchable) {
+    return nullptr;
+}

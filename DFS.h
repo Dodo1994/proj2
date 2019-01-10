@@ -14,10 +14,5 @@ class DFS : public Searcher<T>{
     T search(Searchable<T> searchable);
 };
 
-template<class T>
-T DFS<T>::search(Searchable<T> searchable) {
-    return nullptr;
-}
-
 
 #endif //PROJ2222_DFS_H
