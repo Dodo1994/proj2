@@ -18,6 +18,8 @@ public:
     State<T> getInitialState();
     State<T> getGoalState();
     list<State<T>> getAllPossibleStates(State<T> s);
+    list<State<T>> getAllStates();
 };
+
 
 #endif //PROJ2222_SEARCHABLE_H
