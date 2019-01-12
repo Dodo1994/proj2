@@ -1,30 +1,26 @@
-//
-// Created by doviwid on 12/30/18.
-//
 
-#ifndef PROJ2_CACHEMANAGER_H
-#define PROJ2_CACHEMANAGER_H
+
+
+#ifndef PROJ2222_CACHEMANAGER_H
+#define PROJ2222_CACHEMANAGER_H
+
 
 #include <map>
 
 using namespace std;
-template <class S, class P>
+
+template <class Problem ,class Solution>
 class CacheManager {
 protected:
-    map<P, S> solutions;
+    map<Problem, Solution> solutions;
+
 public:
-    virtual bool isSavedSolution(P p){
-        return solutions.count(p) != 0;
-    }
+    virtual bool isSavedSolution(Problem problem);
 
-    virtual S getSolution(P p) {
-        return solutions[p];
-    }
+    virtual Solution getSolution(Problem problem);
 
-    virtual void saveSolution(P p, S s) {
-        solutions[p] = s;
-    }
+    virtual void saveSolution(Problem problem, Solution solution);
 };
 
 
-#endif //PROJ2_CACHEMANAGER_H
+#endif //PROJ2222_CACHEMANAGER_H

@@ -1,19 +1,22 @@
 //
-// Created by doviwid on 1/6/19.
+// Created by ori on 1/6/19.
 //
 
-#ifndef PROJ2_STRINGREVERSER_H
-#define PROJ2_STRINGREVERSER_H
+#ifndef PROJ2222_STRINGREVERSER_H
+#define PROJ2222_STRINGREVERSER_H
+
 
 #include <string>
 #include "Solver.h"
 
 using namespace std;
 
-class StringReverser : public Solver<string, string> {
+class StringReverser : public SolverImp<string, string> {
+
 public:
-    string solve(string prob);
+    string solveImp(string problem);
 };
 
 
-#endif //PROJ2_STRINGREVERSER_H
+
+#endif //PROJ2222_STRINGREVERSER_H

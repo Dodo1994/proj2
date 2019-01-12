@@ -1,5 +1,5 @@
 //
-// Created by doviwid on 12/30/18.
+// Created by ori on 1/6/19.
 //
 
 #include "MyTestClientHandler.h"
@@ -27,4 +27,3 @@ void MyTestClientHandler<Solution, Problem>::handleClient(istream in, ostream ou
         in.getline(buffer, 256);
     }
 }
-// TODO: flush vs endl.

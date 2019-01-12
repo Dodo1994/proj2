@@ -1,21 +1,23 @@
 //
-// Created by doviwid on 12/30/18.
+// Created by ori on 1/6/19.
 //
 
-#ifndef PROJ2_FILECACHEMANAGER_H
-#define PROJ2_FILECACHEMANAGER_H
+#ifndef PROJ2222_FILECACHEMANAGER_H
+#define PROJ2222_FILECACHEMANAGER_H
 
 
+#include <fstream>
 #include "CacheManager.h"
-// TODO: support file saving and loading.
-class FileCacheManager: public CacheManager<string,string> {
+
+
+template <class Problem ,class Solution>
+class FileCacheManager: public CacheManager<Problem, Solution> {
+
 public:
     FileCacheManager();
-    ~FileCacheManager();
 
-private:
-    void saveToFile();
+    ~FileCacheManager();
 };
 
 
-#endif //PROJ2_FILECACHEMANAGER_H
+#endif //PROJ2222_FILECACHEMANAGER_H

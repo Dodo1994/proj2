@@ -1,9 +1,10 @@
 //
-// Created by doviwid on 12/30/18.
+// Created by ori on 1/6/19.
 //
 
-#ifndef PROJ2_MYTESTCLIENTHANDLER_H
-#define PROJ2_MYTESTCLIENTHANDLER_H
+#ifndef PROJ2222_MYTESTCLIENTHANDLER_H
+#define PROJ2222_MYTESTCLIENTHANDLER_H
+
 
 #include "ClientHandler.h"
 #include "Solver.h"
@@ -16,10 +17,11 @@ class MyTestClientHandler : public ClientHandler{
     CacheManager<Problem,Solution> *cm;
 
 public:
-    MyTestClientHandler(CacheManager<Problem,Solution>* cm, Solver<Problem,Solution>* solver);
+    MyTestClientHandler(CacheManager<Problem, Solution>* cm, Solver<Problem, Solution>* solver);
 
     void handleClient(istream in,ostream out) override;
 };
 
 
-#endif //PROJ2_MYTESTCLIENTHANDLER_H
+
+#endif //PROJ2222_MYTESTCLIENTHANDLER_H
