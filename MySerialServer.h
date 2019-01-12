@@ -1,24 +1,35 @@
 //
-// Created by doviwid on 12/30/18.
+// Created by ori on 1/6/19.
 //
 
-#ifndef PROJ2_MYSERIALSERVER_H
-#define PROJ2_MYSERIALSERVER_H
+#ifndef PROJ2222_MYSERIALSERVER_H
+#define PROJ2222_MYSERIALSERVER_H
+
 
 #include "Server.h"
+#include "Solver.h"
+#include "StringReverser.h"
+#include "CacheManager.h"
+#include "FileCacheManager.h"
+#include "MyTestClientHandler.h"
 #include <thread>
+#include <netinet/in.h>
+#include <vector>
+#include <strings.h>
+#include <unistd.h>
+#include <iostream>
 
-using namespace server_side;
+//using namespace server_side;
 
 class MySerialServer : public Server {
 
 public:
-    void open(int port, ClientHandler *c);
+    MySerialServer()= default;
 
-    void stop();
+    void stop() override;
 
-    static void start(int port, ClientHandler *c);
+    void start(int port, ClientHandler *clientHandler);
 };
 
 
-#endif //PROJ2_MYSERIALSERVER_H
+#endif //PROJ2222_MYSERIALSERVER_H

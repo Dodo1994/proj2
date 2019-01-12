@@ -17,14 +17,14 @@
 using std::queue;
 
 template <class T>
-class BFS : public Searcher<T, list<State<T>>>{
-
+class BFS : public Searcher<T> {
 public:
-    list<State<T>> search(Searchable<T> searchable);
+    list<State<T>*>* search(Searchable<T>* searchable);
 
 private:
-    list<State<T>> backTrace(State<T> state, Searchable<T> searchable);
+    list<State<T>*>* backTrace(State<T>* state, Searchable<T>* searchable);
 };
+
 
 
 /**
@@ -32,35 +32,41 @@ private:
  */
 
 template<class T>
-list<State<T>> BFS<T>::search(Searchable<T> searchable) {
+list<State<T>*>* BFS<T>::search(Searchable<T>* searchable) {
+    this->evaluatedNodes=0;
+
     // if initial case is goal state
-    if(searchable.getInitialState().equals(searchable.getGoalState())){
-        list<State<T>> l;
-        l.push_back(searchable.getInitialState());
-        return l;
+    if(searchable->getInitialState() == searchable->getGoalState()){
+        return this->backTrace(searchable->getInitialState(), searchable);
     }
 
-    list<State<T>> states = searchable.getAllStates();
-    list<State<T>> blacks;
-    list<State<T>> grays;
-    queue<State<T>> myQueue;
-    myQueue.push(searchable.getInitialState());
+    list<State<T>*> blacks;
+    list<State<T>*> grays;
+    queue<State<T>*> myQueue;
+    myQueue.push(searchable->getInitialState());
 
     while (!myQueue.empty()) {
-        State<T> state = myQueue.front();
+        State<T>* state = myQueue.front();
+        this->evaluatedNodes++;
 
         // if state is goal state
-        if(searchable.getGoalState().equals(state)){
-            return this->backTrace(state);
+        if(searchable->getGoalState() == state){
+            return this->backTrace(state, searchable);
         }
 
-        list<State<T>> adj = searchable.getAllPossibleStates(state);
+        list<State<T>*> adj = *(searchable->getAllPossibleStates(state));
 
         for(auto &a : adj){
-            bool isWhite = (find(grays.begin()), grays.end(), a) != grays.end();
+            bool isWhite = true;
+            for (auto &g : grays) {
+                if(a == g){
+                    isWhite= false;
+                }
+            }
+
             if (isWhite){
                 grays.push_back(a);
-                a.setCameFrom(state); // TODO doesnt recognise func
+                a->setCameFrom(state);
                 myQueue.push(a);
             }
         }
@@ -71,17 +77,19 @@ list<State<T>> BFS<T>::search(Searchable<T> searchable) {
 }
 
 template<class T>
-list<State<T>> BFS<T>::backTrace(State<T> state, Searchable<T> searchable) {
-    list<State<T>> trace;
+list<State<T> *> *BFS<T>::backTrace(State<T> *state, Searchable<T> *searchable) {
+    cout<<"BFS returns trace"<<endl;
+    auto * trace = new list<State<T>*>;
 
-    if (state.equals(searchable.getInitialState())) {
-        trace.push_back(state);
-    } else if (state.getCameFrom() == nullptr) {
-        std::cout << "no path" << endl;
-    } else {
-        backTrace(state.getCameFrom(), searchable);
-        trace.push_back(state);
+    while (state != searchable->getInitialState()){
+        if(state == nullptr){
+            cout<<"no path"<<endl;
+            return nullptr;
+        }
+        trace->push_back(state);
+        state = state->getCameFrom();
     }
+    trace->push_back(searchable->getInitialState());
 
     return trace;
 }

@@ -1,35 +1,46 @@
 //
-// Created by doviwid on 12/30/18.
+// Created by ori on 1/6/19.
 //
 
-#include <fstream>
 #include "FileCacheManager.h"
 
-FileCacheManager::FileCacheManager() {
+template<class Problem, class Solution>
+FileCacheManager<Problem, Solution>::FileCacheManager() {
     string line;
     ifstream file;
-    file.open("CacheManager.txt", ios::in);
+    file.open("fly_data.txt", ios::in);
+
     if (file.is_open()) {
-        while (getline(file, line)) {
-            size_t mid=line.find('$');
-            this->saveSolution(line.substr(0,mid),line.substr(mid+1));
+        while (line != "this_is_the_end" && getline(file, line)) {
+            int i = 0;
+            string question, answer;
+
+            // question until $
+            while (line[i] != '$') {
+                question += line[i];
+                ++i;
+            }
+            ++i;
+
+            // answer until end
+            while (i < line.length()) {
+                answer += line[i];
+                ++i;
+            }
         }
         file.close();
-    } else {
-        throw "unable to open file";
     }
 }
 
-FileCacheManager::~FileCacheManager() {
-    this->saveToFile();
-}
+template<class Problem, class Solution>
+FileCacheManager<Problem, Solution>::~FileCacheManager() {
+    ofstream file("qa_data.txt");
 
-void FileCacheManager::saveToFile() {
-    ofstream file("CacheManager.txt");
     if (file.is_open()) {
-        for (auto &qa: this->solutions) {
-            file << qa.first + "$" + qa.second << endl;
+        for (auto &qa : this->solutions) {
+            file << qa.first << "$" << qa.second << endl;
         }
+        file << "this_is_the_end";
         file.close();
     } else {
         throw "unable to open file";
