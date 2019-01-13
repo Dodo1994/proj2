@@ -2,25 +2,25 @@
 // Created by doviwid on 1/13/19.
 //
 
-#include "Piont.h"
+#include "Point.h"
 
-Piont::Piont(int x, int y) {
+Point::Point(int x, int y) {
     this->row = x;
     this->col = y;
 }
 
-void Piont::setRow(int x) {
+void Point::setRow(int x) {
     this->row = x;
 }
 
-void Piont::setCol(int y) {
+void Point::setCol(int y) {
     this->col = y;
 }
 
-int Piont::getRow() {
+int Point::getRow() {
     return this->row;
 }
 
-int Piont::getCol() {
+int Point::getCol() {
     return this->col;
 }

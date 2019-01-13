@@ -6,12 +6,12 @@
 #define PROJ2_PIONT_H
 
 
-class Piont {
+class Point {
 int row;
 int col;
 
 public:
-    Piont(int x,int y);
+    Point(int x,int y);
 
     void setRow(int x);
 
