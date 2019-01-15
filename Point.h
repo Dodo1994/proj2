@@ -1,21 +1,18 @@
-//
-// Created by doviwid on 1/13/19.
-//
 
-#ifndef PROJ2_PIONT_H
-#define PROJ2_PIONT_H
+
+#ifndef PROJ2222_POINT_H
+#define PROJ2222_POINT_H
 
 
 class Point {
 int row;
 int col;
-
 public:
-    Point(int x,int y);
+    Point(int row, int col);
 
-    void setRow(int x);
+    void setRow(int row);
 
-    void setCol(int y);
+    void setCol(int col);
 
     int getRow();
 
@@ -23,4 +20,5 @@ public:
 };
 
 
-#endif //PROJ2_PIONT_H
+
+#endif //PROJ2222_POINT_H

@@ -6,12 +6,11 @@
 
 
 #include <string>
-#include "Searcher.h"
-#include "list"
-#include "map"
-
+#include <list>
+#include <map>
 #include <iostream>
 #include <queue>
+
 #include "Searcher.h"
 
 using std::queue;
@@ -20,12 +19,7 @@ template <class T>
 class BFS : public Searcher<T> {
 public:
     list<State<T>*>* search(Searchable<T>* searchable);
-
-private:
-    list<State<T>*>* backTrace(State<T>* state, Searchable<T>* searchable);
 };
-
-
 
 /**
  * BFS according Corman
@@ -33,8 +27,6 @@ private:
 
 template<class T>
 list<State<T>*>* BFS<T>::search(Searchable<T>* searchable) {
-    this->evaluatedNodes=0;
-
     // if initial case is goal state
     if(searchable->getInitialState() == searchable->getGoalState()){
         return this->backTrace(searchable->getInitialState(), searchable);
@@ -47,7 +39,7 @@ list<State<T>*>* BFS<T>::search(Searchable<T>* searchable) {
 
     while (!myQueue.empty()) {
         State<T>* state = myQueue.front();
-        this->evaluatedNodes++;
+        ++this->evaluatedNodes;
 
         // if state is goal state
         if(searchable->getGoalState() == state){
@@ -76,23 +68,6 @@ list<State<T>*>* BFS<T>::search(Searchable<T>* searchable) {
     }
 }
 
-template<class T>
-list<State<T> *> *BFS<T>::backTrace(State<T> *state, Searchable<T> *searchable) {
-    cout<<"BFS returns trace"<<endl;
-    auto * trace = new list<State<T>*>;
-
-    while (state != searchable->getInitialState()){
-        if(state == nullptr){
-            cout<<"no path"<<endl;
-            return nullptr;
-        }
-        trace->push_back(state);
-        state = state->getCameFrom();
-    }
-    trace->push_back(searchable->getInitialState());
-
-    return trace;
-}
 
 
 #endif //PROJ2

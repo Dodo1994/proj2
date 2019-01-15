@@ -15,7 +15,6 @@ public:
 
 private:
     list<State<T>*>* visit(State<T>* state, list<State<T>*> blacks, list<State<T>*> grays, Searchable<T>* searchable);
-    list<State<T>*>* backTrace(State<T>* state, Searchable<T>* searchable);
 };
 
 
@@ -35,6 +34,7 @@ list<State<T>*>* DFS<T>::search(Searchable<T>* searchable) {
 template<class T>
 list<State<T> *> *
 DFS<T>::visit(State<T> *state, list<State<T> *> blacks, list<State<T> *> grays, Searchable<T> *searchable) {
+    ++this->evaluatedNodes;
 
     // if state is goal state
     if(searchable->getGoalState() == state){
@@ -45,7 +45,7 @@ DFS<T>::visit(State<T> *state, list<State<T> *> blacks, list<State<T> *> grays, 
     grays.push_back(state);
 
     for(auto &a : adj) {
-        bool isWhite = true;// = (find(grays.begin(), grays.end(), a) == grays.end());
+        bool isWhite = true;
         for (auto &g : grays) {
             if(a == g){
                 isWhite= false;
@@ -53,30 +53,11 @@ DFS<T>::visit(State<T> *state, list<State<T> *> blacks, list<State<T> *> grays, 
         }
 
         if(isWhite) {
-            this->evaluatedNodes++;
-            a->setCameFrom(state); // doesnt recognise. weird...
+            a->setCameFrom(state);
             return this->visit(a, blacks, grays, searchable);
         }
     }
     blacks.push_back(state);
-}
-
-template<class T>
-list<State<T> *> *DFS<T>::backTrace(State<T> *state, Searchable<T> *searchable) {
-    cout<<"DFS returns trace"<<endl;
-    auto * trace = new list<State<T>*>;
-
-    while (state != searchable->getInitialState()){
-        if(state == nullptr){
-            cout<<"no path"<<endl;
-            return nullptr;
-        }
-        trace->push_back(state);
-        state = state->getCameFrom();
-    }
-    trace->push_back(searchable->getInitialState());
-
-    return trace;
 }
 
 

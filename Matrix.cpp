@@ -13,64 +13,77 @@ void Matrix::fill(vector<int>* allNums) {
 Matrix::Matrix(int rows, int cols) {
     this->numRows=rows;
     this->numCols=cols;
-    this->rows = new vector<vector<State<string>*>*>;
+    this->rows = new vector<vector<State<Point*>*>*>;
 
     for (int i = 0; i < this->numRows; ++i) {
-        vector<State<string>*>* row = new vector<State<string>*>;
+        vector<State<Point*>*>* row = new vector<State<Point*>*>;
         this->rows->push_back(row);
         for (int j = 0; j < this->numCols; ++j) {
-            row->push_back(new State<string>(to_string(i)+","+to_string(j)));
+            //row->push_back(new State<string>(to_string(i)+","+to_string(j)));
+            row->push_back(new State<Point*>(new Point(i,j)));
         }
     }
 }
 
 void Matrix::displayMat() {
-    cout<<"the mat is:"<<endl;
+    cout << "the mat is:" << endl;
     for (int i = 0; i < this->numRows; ++i) {
         for (int j = 0; j < this->numCols; ++j) {
-            cout<<this->rows->at(i)->at(j)->getCost()<<'\t';
+            cout << this->rows->at(i)->at(j)->getCost() << '\t';
         }
-        cout<<endl;
+        cout << endl;
     }
+    cout << "entrance:\t" << this->entrance->getState()->getRow()
+         << "," << this->entrance->getState()->getCol() << endl;
+    cout << "exit:\t\t" << this->exit->getState()->getRow()
+         << "," << this->exit->getState()->getCol() << endl;
 }
 
-State<string>* Matrix::getInitialState() {
+State<Point*>* Matrix::getInitialState() {
     return this->entrance;
 }
 
-State<string>* Matrix::getGoalState() {
+State<Point*>* Matrix::getGoalState() {
     return this->exit;
 }
 
-list<State<string>*>* Matrix::getAllPossibleStates(State<string> *state) {
+list<State<Point*>*>* Matrix::getAllPossibleStates(State<Point*> *state) {
     int row;
     int col;
     bool isFinished = false;
     for (int i = 0; i < this->numRows && !isFinished; ++i) {
         for (int j = 0; j < this->numCols && !isFinished; ++j) {
-            if(this->rows->at(i)->at(j)==state){
-                isFinished= true;
-                row=i;
-                col=j;
+            if (this->rows->at(i)->at(j) == state) {
+                isFinished = true;
+                row = i;
+                col = j;
             }
         }
     }
 
-    auto * pos = new list<State<string>*>;
-    if(row > 0){
-        pos->push_back(this->rows->at(row-1)->at(col));
+    auto *pos = new list<State<Point *> *>;
+    if (row > 0) {
+        if(this->rows->at(row - 1)->at(col)->getCost()!=-1) {
+            pos->push_back(this->rows->at(row - 1)->at(col));
+        }
     }
 
-    if (col>0){
-        pos->push_back(this->rows->at(row)->at(col-1));
+    if (col > 0) {
+        if(this->rows->at(row)->at(col - 1)->getCost()!=-1) {
+            pos->push_back(this->rows->at(row)->at(col - 1));
+        }
     }
 
-    if(row < this->numRows - 1){
-        pos->push_back(this->rows->at(row+1)->at(col));
+    if (row < this->numRows - 1) {
+        if(this->rows->at(row + 1)->at(col)->getCost()!=-1) {
+            pos->push_back(this->rows->at(row + 1)->at(col));
+        }
     }
 
-    if(col < this->numCols -1) {
-        pos->push_back(this->rows->at(row)->at(col+1));
+    if (col < this->numCols - 1) {
+        if(this->rows->at(row)->at(col + 1)->getCost()!=-1) {
+            pos->push_back(this->rows->at(row)->at(col + 1));
+        }
     }
 
     return pos;
@@ -83,6 +96,7 @@ void Matrix::setInitialState(int row, int col) {
 void Matrix::setGoalState(int row, int col) {
     this->exit=this->rows->at(row)->at(col);
 }
+
 
 
 

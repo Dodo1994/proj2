@@ -3,45 +3,49 @@
 //
 
 #include <iostream>
+#include <fstream>
 #include "MatrixCreator.h"
 #include "Utils.h"
 
 Matrix* MatrixCreator::createFromConsole() {
-    int height = 0;
-    int width = 0;
     string input;
     string line;
 
     cout << "type your mat (to finish type 'end')" << endl;
 
-    while (true) {
+    while (line != "end") {
         // get line each time
         getline(cin, line);
-        ++height;
-
-        // read until type 'quit'
-        if (line == "end") { break; }
 
         // add '$' after each line
         input += line + "$";
     }
 
-    // fix height
+    return this->createFromString(input);
+}
+
+Matrix *MatrixCreator::createFromString(string input) {
+    Utils utils;
+    int height = 0;
+    int width = 0;
+
+    // determine height
+    for(int i=1; i<input.size();++i){
+        if(input[i]=='$'){
+            ++height;
+        }
+    }
     height -= 3;
 
     // determine width
     int j = 0;
-    bool finished = false;
-    while (input[j] != '$' && !finished) {
-        ++width;
-        while (input[j] != ',' && j < input.size() && !finished) {
-            if (input[j] == '$') {
-                finished = true;
-            }
-            ++j;
+    while (input[j] != '$') {
+        if(input[j] == ','){
+            ++width;
         }
         ++j;
     }
+    ++width;
 
     Matrix *matrix = new Matrix(height, width);
 
@@ -52,7 +56,9 @@ Matrix* MatrixCreator::createFromConsole() {
         for (int c = 0; c < width; ++c) {
             num = "";
             while (input[i] != ',' && input[i] != '$') {
-                num += input[i];
+                if (utils.isDig(input[i])) {
+                    num += input[i];
+                }
                 ++i;
             }
             nums->push_back(stoi(num));
@@ -61,21 +67,58 @@ Matrix* MatrixCreator::createFromConsole() {
     }
     matrix->fill(nums);
 
-    string entrance;
-    while (input[i] != '$') {
-        entrance += input[i];
+    string rEntrance, cEntrance;
+    while(input[i]!= ',') {
+        if (utils.isDig(input[i])) {
+            rEntrance += input[i];
+        }
         ++i;
     }
     ++i;
-    string exit;
-    while (i < input.size() && input[i] != '$') {
-        exit += input[i];
+    while (input[i] != '$') {
+        if (utils.isDig(input[i])) {
+            cEntrance += input[i];
+        }
         ++i;
     }
-
-    Utils utils;
-    matrix->setInitialState(utils.getRowCoordintae(entrance), utils.getColCoordintae(entrance));
-    matrix->setGoalState(utils.getRowCoordintae(exit), utils.getColCoordintae(exit));
+    ++i;
+    
+    string rExit, cExit;
+    while(input[i]!= ',') {
+        if (utils.isDig(input[i])) {
+            rExit += input[i];
+        }
+        ++i;
+    }
+    ++i;
+    while (input[i] != '$') {
+        if (utils.isDig(input[i])) {
+            cExit += input[i];
+        }
+        ++i;
+    }
+    
+    matrix->setInitialState(stoi(rEntrance), stoi(cEntrance));
+    matrix->setGoalState(stoi(rExit), stoi(cExit));
 
     return matrix;
 }
+
+Matrix *MatrixCreator::createFromFile(string fileName) {
+    string line;
+    string input;
+    ifstream file (fileName);
+
+    if (file.is_open()) {
+        getline (file, line);
+        input += line + "$";
+        while (line != "end") {
+            getline (file, line);
+            input += line + "$";
+        }
+        file.close();
+    }
+
+    return this->createFromString(input);
+}
+

@@ -8,13 +8,20 @@
 
 #include <iostream>
 #include <fstream>
+#include "CacheManagers.h"
 
 using namespace std;
 
 class ClientHandler {
 
 public:
-    virtual void handleClient(istream in,ostream out);
+    virtual void handleClient();
+
+    virtual void handleClient(int port);
+
+    virtual void handleClient(string question, string &answer);
+
+    virtual void handleClient(istream in, ostream out);
 };
 
 
